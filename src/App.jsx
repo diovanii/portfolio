@@ -2,8 +2,11 @@ import "./App.css";
 import { FaDiscord } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
+  const [copied, setCopied] = useState(false);
+
   useEffect(() => {
     if (!window.YT) {
       const script = document.createElement("script");
@@ -32,6 +35,18 @@ function App() {
     }
   }, []);
 
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText("diovani.fsoc");
+
+      setCopied(true);
+
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <main>
       <div className="container">
@@ -44,11 +59,14 @@ function App() {
                 alt="Diovani picture"
               />
             </div>
-
+            <div className="profileTag">
+              <span>Video editor for streamers/youtubers</span>
+            </div>
             <div className="profileDescription">
               <p>
-                Your streams have great moments.<br></br>Let's make them
-                unforgettable!
+                Your content have great moments.
+                <br />
+                Let's make them unforgettable!
               </p>
             </div>
             <div>
@@ -137,7 +155,11 @@ function App() {
       <div className="container">
         <section className="letsWork">
           <h1>Found something interesting?</h1>
-          <p>DM me and let's work togheter</p>
+          <p className="description">
+            Send me a message on <strong>X</strong> or <strong>Discord</strong>
+            <br />
+            and let's work togheter!
+          </p>
           <div className="buttons">
             <button className="x">
               <a
@@ -147,19 +169,12 @@ function App() {
                 aria-label="Contact me on X"
               >
                 <FaXTwitter />
-                <p>diovanifsoc</p>
+                <p>Send a message</p>
               </a>
             </button>
-            <button className="discord">
-              <a
-                href="https://discordapp.com/users/diovani.fsoc"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Contact me on Discord"
-              >
-                <FaDiscord />
-                <p>diovani.fsoc</p>
-              </a>
+            <button className="discord" onClick={handleCopy}>
+              <FaDiscord />
+              <p>{copied ? "Copied!" : "Copy username"}</p>
             </button>
           </div>
         </section>

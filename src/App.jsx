@@ -126,7 +126,7 @@ function App() {
         </section>
       </div>
       <div className="container">
-        <section>
+        <section className="longFormSection">
           <div>
             <h1>Long-form examples</h1>
           </div>
